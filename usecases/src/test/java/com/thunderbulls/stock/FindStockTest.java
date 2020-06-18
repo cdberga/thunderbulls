@@ -1,13 +1,15 @@
 package com.thunderbulls.stock;
 
+import static org.junit.Assert.assertNull;
+
 import org.junit.Test;
 
 public class FindStockTest {
 
 	@Test
-	public void notFoundByCode(){
+	public void notFoundCodeAAAA1(){
 		FindStock stock = new FindStock();
-		stock.findByCode("AAAA1");
+		assertNull("Stock AAAA1 not found", stock.findByCode("AAAA1"));
     }
 
 }
