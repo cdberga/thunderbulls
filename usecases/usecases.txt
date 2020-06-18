@@ -1,0 +1,11 @@
+Console delivery
+    searches a stock by code
+    searches a stock by nickname
+    asks for a stock rotation list
+    serializes stock
+
+
+    Stock Use Cases
+        Find Stock
+        List Stocks
+        Save Stock
