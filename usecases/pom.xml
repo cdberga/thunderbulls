@@ -8,4 +8,13 @@
   <artifactId>usecases</artifactId>
   <name>usecases</name>
   <packaging>jar</packaging>
+ 
+  <dependencies>
+  	<dependency>
+  		<groupId>com.berga.thunderbulls</groupId>
+  		<artifactId>domain</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  		<scope>provided</scope>
+  	</dependency>
+  </dependencies>
 </project>
