@@ -1,11 +1,32 @@
-Console delivery
+Stock Console / Stock Web
     searches a stock by code
     searches a stock by nickname
     asks for a stock rotation list
-    serializes stock
+    saves stock
+    changes stock
+    freezes stock
 
-
-    Stock Use Cases
+    Stock Use Cases and cenarios
         Find Stock
+            not found
+            found
+            
         List Stocks
+            show list
+            shows empty list
+
         Save Stock
+            try to save stock without name
+            try to save stock without corporation
+            save stock
+
+    Stock Controller
+        Create Stock
+        get stock
+        list stocks
+
+    Stock DB
+        read stock
+        create stock
+        update stock
+
