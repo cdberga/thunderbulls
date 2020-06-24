@@ -2,4 +2,5 @@
 .project
 .settings/
 target/
-
+*/.sts4-cache
+*/.attach_pid*
