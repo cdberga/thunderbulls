@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.thunderbulls.stock.repository.StockRepository;
+
 public class FindStockTest {
 
 	FindStock finder;

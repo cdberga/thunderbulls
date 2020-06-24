@@ -2,6 +2,9 @@ package com.thunderbulls.stock;
 
 import java.util.List;
 
+import com.thunderbulls.stock.repository.StockRepository;
+import com.thunderbulls.stock.request.StockRequest;
+
 public class FindStock implements StockRequest {
 
 	private StockRepository stockRepository;

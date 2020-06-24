@@ -3,6 +3,8 @@ package com.thunderbulls.stock;
 import java.util.Arrays;
 import java.util.List;
 
+import com.thunderbulls.stock.repository.StockRepository;
+
 public class MockStockRepository implements StockRepository {
 
 	public Stock findByCode(String code) {

@@ -1,6 +1,8 @@
-package com.thunderbulls.stock;
+package com.thunderbulls.stock.repository;
 
 import java.util.List;
+
+import com.thunderbulls.stock.Stock;
 
 public interface StockRepository {
 
