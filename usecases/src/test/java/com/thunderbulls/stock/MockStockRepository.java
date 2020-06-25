@@ -7,12 +7,10 @@ import com.thunderbulls.stock.repository.StockRepository;
 
 public class MockStockRepository implements StockRepository {
 
+	private List<Stock> stockList;
+
 	public Stock findByCode(String code) {
 		return new Stock(code);
-	}
-
-	public Stock findById(int id) {
-		return new Stock(id);
 	}
 
 	public List<Stock> findByCorpName(String corpName) {

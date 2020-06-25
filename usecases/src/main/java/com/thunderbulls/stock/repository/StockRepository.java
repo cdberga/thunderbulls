@@ -8,7 +8,5 @@ public interface StockRepository {
 
 	Stock findByCode(String code);
 	
-	Stock findById(int id);
-	
 	List<Stock> findByCorpName(String corpName);
 }

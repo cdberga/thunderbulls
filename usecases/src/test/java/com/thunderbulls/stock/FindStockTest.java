@@ -25,11 +25,6 @@ public class FindStockTest {
 	}
 
 	@Test
-	public void canFindStockById() {
-		assertNotNull(finder.findById(1));
-	}
-
-	@Test
 	public void canFindStockByCorp() {
 		assertTrue(finder.findByCorpName("Petrobras").size() == 2);
 	}

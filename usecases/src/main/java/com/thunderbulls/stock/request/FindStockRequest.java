@@ -4,11 +4,9 @@ import java.util.List;
 
 import com.thunderbulls.stock.Stock;
 
-public interface StockRequest {
+public interface FindStockRequest {
 
 	Stock findByCode(String code);
-	
-	Stock findById(int id);
 	
 	List<Stock> findByCorpName(String corpName);
 }
