@@ -11,7 +11,11 @@ public class MockStockRepository implements StockRepository {
 	private List<Stock> stockList = new ArrayList<Stock>();
 
 	public Stock findByCode(String code) {
-		return new Stock(code);
+		Stock check = stockList.stream()
+					.filter(stock -> code.equals(stock.getCode()))
+					.findAny()
+					.orElse(null);
+		return check;
 	}
 
 	public List<Stock> findByCorpName(String corpName) {

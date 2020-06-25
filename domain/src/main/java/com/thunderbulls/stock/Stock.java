@@ -13,4 +13,8 @@ public class Stock {
 		this.code = code;
 		this.companyName = company;
 	}
+
+	public String getCode() {
+		return this.code;
+	}
 }
