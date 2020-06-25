@@ -16,6 +16,9 @@ public class FindStockTest {
 	public void initialize() {
 		finder = new FindStock();
 		StockRepository sr = new MockStockRepository();
+		sr.save(new Stock("AAAA1", "AAAA Corp"));
+		sr.save(new Stock("PETR4", "Petrobras"));
+		sr.save(new Stock("PETR5", "Petrobras"));
 		finder.setRepository(sr);
 	}
 
