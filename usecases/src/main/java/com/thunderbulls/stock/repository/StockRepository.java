@@ -9,4 +9,6 @@ public interface StockRepository {
 	Stock findByCode(String code);
 	
 	List<Stock> findByCorpName(String corpName);
+
+	Stock save(Stock stock);
 }
