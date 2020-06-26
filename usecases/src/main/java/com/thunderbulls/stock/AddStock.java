@@ -2,9 +2,9 @@ package com.thunderbulls.stock;
 
 import com.thunderbulls.UseCase;
 import com.thunderbulls.stock.repository.StockRepository;
-import com.thunderbulls.stock.request.AddStockRequest;
+import com.thunderbulls.stock.request.AddStockInput;
 
-public class AddStock extends UseCase<StockRepository> implements AddStockRequest {
+public class AddStock extends UseCase<StockRepository> implements AddStockInput {
 
 	public AddStock() {
 	}

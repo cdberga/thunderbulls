@@ -1,11 +1,14 @@
 package com.thunderbulls.stock;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import com.thunderbulls.ResponseModel;
 import com.thunderbulls.stock.repository.StockRepository;
 
 public class FindStockTest {
@@ -24,11 +27,14 @@ public class FindStockTest {
 
 	@Test
 	public void canFindStockByCode() {
-		assertNotNull(finder.findByCode("AAAA1"));
+		ResponseModel<Stock> response = finder.findByCode("AAAA1");
+		assertNull(response.getError());
 	}
 
 	@Test
 	public void canFindStockByCorp() {
-		assertTrue(finder.findByCorpName("Petrobras").size() == 2);
+		ResponseModel<List<Stock>> response = finder.findByCorpName("Petrobras");
+		List<Stock> list = response.getObject();
+		assertTrue(list.size() == 2);
 	}
 }
