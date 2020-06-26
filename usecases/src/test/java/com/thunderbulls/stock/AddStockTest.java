@@ -1,10 +1,12 @@
 package com.thunderbulls.stock;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import com.thunderbulls.ResponseModel;
 import com.thunderbulls.stock.repository.StockRepository;
 
 public class AddStockTest {
@@ -19,13 +21,15 @@ public class AddStockTest {
 		add.setRepository(repo);
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void canExistentStockBeAdded() {
-		add.add(new Stock("VIVT4"));
+		ResponseModel<Stock> response = add.add(new Stock("VIVT4"));
+		assertNotNull(response.getError());
 	}
 	
 	@Test
 	public void canAddNewStock() {
-		assertNotNull(add.add(new Stock("RADL3")));
+		ResponseModel<Stock> response = add.add(new Stock("RADL3"));
+		assertNull(response.getError());
 	}
 }

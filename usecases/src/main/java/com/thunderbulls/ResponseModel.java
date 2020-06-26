@@ -22,4 +22,8 @@ public class ResponseModel<T> {
 		this.error = error;
 	}
 
+	public void setObject(T object) {
+		this.object = object;
+	}
+
 }
