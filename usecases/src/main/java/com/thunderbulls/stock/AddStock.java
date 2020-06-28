@@ -2,12 +2,16 @@ package com.thunderbulls.stock;
 
 import com.thunderbulls.ResponseModel;
 import com.thunderbulls.UseCase;
+import com.thunderbulls.stock.input.AddStockInput;
+import com.thunderbulls.stock.output.AddStockOutput;
 import com.thunderbulls.stock.repository.StockRepository;
-import com.thunderbulls.stock.request.AddStockInput;
 
-public class AddStock extends UseCase<StockRepository> implements AddStockInput {
+public class AddStock extends UseCase<StockRepository, Stock> implements AddStockInput {
 
+	AddStockOutput output;
+	
 	public AddStock() {
+		super();
 	}
 
 	public AddStock(StockRepository stockRepository) {
@@ -15,17 +19,27 @@ public class AddStock extends UseCase<StockRepository> implements AddStockInput 
 	}
 
 	public ResponseModel<Stock> add(Stock stock) {
-		ResponseModel<Stock> response = null;
-		try {
-			Stock s = repository.findByCode(stock.getCode());
-			response = new ResponseModel<Stock>(s, null);
-			if (s != null)
-				throw new IllegalArgumentException("Stock \"" + stock.getCode() + "\" already exists.");
-		} catch (Exception e) {
-			response.setObject(null);
-			response.setError(e);
+		Stock s = repository.findByCode(stock.getCode());
+
+		if (s != null) {
+			return createResponse(stock, "Stock \"" + stock.getCode() + "\" already exists.");
 		}
-		return response;
+
+		return createResponse(repository.save(stock), null);
+	}
+
+	@Override
+	public ResponseModel<Stock> createResponse(Stock object, String error) {
+		output.setResponse(new ResponseModel<Stock>(object, error));
+		return output.getResponse();
+	}
+
+	public AddStockOutput getOutput() {
+		return output;
+	}
+
+	public void setOutput(AddStockOutput output) {
+		this.output = output;
 	}
 
 }

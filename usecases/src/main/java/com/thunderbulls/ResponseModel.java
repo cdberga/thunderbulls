@@ -1,25 +1,34 @@
 package com.thunderbulls;
 
+import java.util.List;
+
 public class ResponseModel<T> {
 
 	T object;
-	Throwable error;
+	List<String> errors;
 	
-	public ResponseModel(T object, Throwable error) {
+	public ResponseModel(T object) {
 		this.object = object;
-		this.error = error;
 	}
 	
-	public Throwable getError() {
-		return error;
+	public ResponseModel(T object, String error) {
+		this.object = object;
+		this.errors.add(error);
+	}
+	
+	public ResponseModel() {
+	}
+
+	public List<String> getError() {
+		return errors;
 	}
 
 	public T getObject() {
 		return object;
 	}
 	
-	public void setError(Throwable error) {
-		this.error = error;
+	public void addError(String error) {
+		this.errors.add(error);
 	}
 
 	public void setObject(T object) {

@@ -1,4 +1,4 @@
-package com.thunderbulls.stock.request;
+package com.thunderbulls.stock.input;
 
 import java.util.List;
 
