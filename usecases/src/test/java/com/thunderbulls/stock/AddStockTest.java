@@ -26,12 +26,12 @@ public class AddStockTest {
 	@Test
 	public void canExistentStockBeAdded() {
 		ResponseModel<Stock> response = add.add(new Stock("VIVT4"));
-		assertNotNull(response.getError().get(0));
+		assertNotNull(response.getErrors().get(0));
 	}
 
 	@Test
 	public void canAddNewStock() {
 		ResponseModel<Stock> response = add.add(new Stock("RADL3"));
-		assertNull(response.getError().get(0));
+		assertNull(response.getErrors().get(0));
 	}
 }

@@ -22,7 +22,7 @@ public class ResponseModel<T> {
 	public ResponseModel() {
 	}
 
-	public List<String> getError() {
+	public List<String> getErrors() {
 		return errors;
 	}
 
