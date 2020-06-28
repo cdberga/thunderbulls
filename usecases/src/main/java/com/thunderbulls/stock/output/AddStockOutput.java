@@ -5,7 +5,5 @@ import com.thunderbulls.stock.Stock;
 
 public interface AddStockOutput {
 
-	void setResponse(ResponseModel<Stock> response);
-
-	ResponseModel<Stock> getResponse();
+	ResponseModel<Stock> getResponse(Stock s, String errorMessage);
 }

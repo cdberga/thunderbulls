@@ -16,10 +16,6 @@ public class FindStock extends UseCase<StockRepository, Stock> implements FindSt
 		super();
 	}
 
-	public FindStock(StockRepository repository) {
-		super(repository);
-	}
-
 	public ResponseModel<Stock> findByCode(String code) {
 		Stock check = repository.findByCode(code);
 		return createResponse(check, null);
@@ -31,18 +27,12 @@ public class FindStock extends UseCase<StockRepository, Stock> implements FindSt
 	}
 
 	private ResponseModel<List<Stock>> createResponse(List<Stock> list, String errorMessage) {
-		output.setListResponse(new ResponseModel<List<Stock>>(list, errorMessage));
-		return output.getListResponse();
+		return output.getListResponse(list, errorMessage);
 	}
 
 	@Override
 	public ResponseModel<Stock> createResponse(Stock object, String errorMessage) {
-		output.setResponse(new ResponseModel<Stock>(object, errorMessage));
-		return output.getResponse();
-	}
-
-	public FindStockOutput getOutput() {
-		return output;
+		return output.getResponse(object, errorMessage);
 	}
 
 	public void setOutput(FindStockOutput output) {

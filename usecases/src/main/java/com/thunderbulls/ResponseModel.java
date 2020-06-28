@@ -1,5 +1,6 @@
 package com.thunderbulls;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ResponseModel<T> {
@@ -9,10 +10,12 @@ public class ResponseModel<T> {
 	
 	public ResponseModel(T object) {
 		this.object = object;
+		this.errors = new ArrayList<String>();
 	}
 	
 	public ResponseModel(T object, String error) {
 		this.object = object;
+		this.errors = new ArrayList<String>();
 		this.errors.add(error);
 	}
 	

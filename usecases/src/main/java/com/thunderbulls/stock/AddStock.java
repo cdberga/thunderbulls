@@ -14,10 +14,6 @@ public class AddStock extends UseCase<StockRepository, Stock> implements AddStoc
 		super();
 	}
 
-	public AddStock(StockRepository stockRepository) {
-		super(stockRepository);
-	}
-
 	public ResponseModel<Stock> add(Stock stock) {
 		Stock s = repository.findByCode(stock.getCode());
 
@@ -30,12 +26,7 @@ public class AddStock extends UseCase<StockRepository, Stock> implements AddStoc
 
 	@Override
 	public ResponseModel<Stock> createResponse(Stock object, String error) {
-		output.setResponse(new ResponseModel<Stock>(object, error));
-		return output.getResponse();
-	}
-
-	public AddStockOutput getOutput() {
-		return output;
+		return output.getResponse(object, error);
 	}
 
 	public void setOutput(AddStockOutput output) {
@@ -43,3 +34,4 @@ public class AddStock extends UseCase<StockRepository, Stock> implements AddStoc
 	}
 
 }
+
