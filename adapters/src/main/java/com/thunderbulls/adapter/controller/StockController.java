@@ -14,7 +14,6 @@ public class StockController {
 	private AddStockInput addStock;
 
 	public StockViewModel findStock(String code) {
-		findStock = new FindStock();
 		ResponseModel<Stock> response = findStock.findByCode(code);
 		if(response.getErrors().size() == 0)
 			return toViewModel(response);
@@ -23,7 +22,6 @@ public class StockController {
 	}
 	
 	public StockViewModel save(StockViewModel viewModel) {
-		addStock = new AddStock();
 		ResponseModel<Stock> response = addStock.add(toEntity(viewModel));
 		if(response.getErrors().size() == 0)
 			return toViewModel(response);

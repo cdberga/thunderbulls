@@ -21,6 +21,8 @@ public class StockControllerTest {
 		controller = new StockController();
 		addStock = new MockAddStockInput();
 		findStock = new MockFindStockInput();
+		controller.setStockAddInput(addStock);
+		controller.setStockFinderInput(findStock);
 
 		StockViewModel viewModel = new StockViewModel();
 		viewModel.setCode("PETR4");
