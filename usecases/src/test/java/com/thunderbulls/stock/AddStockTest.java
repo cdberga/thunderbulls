@@ -2,6 +2,7 @@ package com.thunderbulls.stock;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,6 +33,6 @@ public class AddStockTest {
 	@Test
 	public void canAddNewStock() {
 		ResponseModel<Stock> response = add.add(new Stock("RADL3"));
-		assertNull(response.getErrors().get(0));
+		assertTrue(response.getErrors().size() == 0);
 	}
 }

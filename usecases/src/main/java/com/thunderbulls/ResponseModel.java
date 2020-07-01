@@ -16,7 +16,8 @@ public class ResponseModel<T> {
 	public ResponseModel(T object, String error) {
 		this.object = object;
 		this.errors = new ArrayList<String>();
-		this.errors.add(error);
+		if(error != null)
+			this.errors.add(error);
 	}
 	
 	public ResponseModel() {

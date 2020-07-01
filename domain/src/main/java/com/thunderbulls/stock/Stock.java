@@ -17,4 +17,16 @@ public class Stock {
 	public String getCode() {
 		return this.code;
 	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+	
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
 }

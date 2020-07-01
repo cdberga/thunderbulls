@@ -37,7 +37,7 @@ public class FindStockTest {
 	@Test
 	public void canFindStockByCode() {
 		ResponseModel<Stock> response = stockFinder.findByCode("AAAA1");
-		assertNull(response.getErrors().get(0));
+		assertTrue(response.getErrors().size() == 0);
 	}
 
 	@Test
