@@ -24,17 +24,17 @@ public class StockControllerTest {
 		controller.setStockAddInput(addStock);
 		controller.setStockFinderInput(findStock);
 
-		StockOutputData viewModel = new StockOutputData();
-		viewModel.setCode("PETR4");
-		viewModel.setCompany("Petrobras");
-		controller.save(viewModel);
+		StockOutputData outputData = new StockOutputData();
+		outputData.setCode("PETR4");
+		outputData.setCompany("Petrobras");
+		controller.save(outputData);
 	}
 
 	@Test
 	public void findStockByCode() {
-		StockOutputData viewModel = controller.findStock("PETR4");
-		assertNotNull(viewModel);
-		assertTrue(viewModel.getCode().equals("PETR4"));
+		StockOutputData outputData = controller.findStock("PETR4");
+		assertNotNull(outputData);
+		assertTrue(outputData.getCode().equals("PETR4"));
 	}
 
 }

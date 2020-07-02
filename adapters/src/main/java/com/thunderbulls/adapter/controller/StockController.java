@@ -21,8 +21,8 @@ public class StockController {
 		return null;
 	}
 	
-	public StockOutputData save(StockOutputData viewModel) {
-		ResponseModel<Stock> response = addStock.add(toEntity(viewModel));
+	public StockOutputData save(StockOutputData outputData) {
+		ResponseModel<Stock> response = addStock.add(toEntity(outputData));
 		if(response.getErrors().size() == 0)
 			return toOutputData(response);
 
@@ -31,20 +31,20 @@ public class StockController {
 	}
 
 	private StockOutputData toOutputData(ResponseModel<Stock> response) {
-		StockOutputData viewModel = new StockOutputData();
-		viewModel.setCode(response.getObject().getCode());
-		viewModel.setCompany(response.getObject().getCompanyName());
-		return viewModel;
+		StockOutputData outputData = new StockOutputData();
+		outputData.setCode(response.getObject().getCode());
+		outputData.setCompany(response.getObject().getCompanyName());
+		return outputData;
 	}
 	
-	private Stock toEntity(StockOutputData viewModel) {
-		Stock entity = new Stock(viewModel.getCode());
-		entity.setCompanyName(viewModel.getCompany());
+	private Stock toEntity(StockOutputData outputData) {
+		Stock entity = new Stock(outputData.getCode());
+		entity.setCompanyName(outputData.getCompany());
 		return entity;
 	}
 	
-	public void setStockFinderInput(FindStockInput find) {
-		this.findStock = find;
+	public void setStockFinderInput(FindStockInput finder) {
+		this.findStock = finder;
 	}
 	
 	public void setStockAddInput(AddStockInput add) {
