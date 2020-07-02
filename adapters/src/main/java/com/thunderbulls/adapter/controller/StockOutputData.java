@@ -1,4 +1,4 @@
-package com.thunderbulls.adapter.view;
+package com.thunderbulls.adapter.controller;
 
 public class StockOutputData {
 
