@@ -1,7 +1,7 @@
 package com.thunderbulls.adapter.controller;
 
 import com.thunderbulls.ResponseModel;
-import com.thunderbulls.adapter.view.StockViewModel;
+import com.thunderbulls.adapter.view.StockOutputData;
 import com.thunderbulls.stock.AddStock;
 import com.thunderbulls.stock.FindStock;
 import com.thunderbulls.stock.Stock;
@@ -13,31 +13,31 @@ public class StockController {
 	private FindStockInput findStock;
 	private AddStockInput addStock;
 
-	public StockViewModel findStock(String code) {
+	public StockOutputData findStock(String code) {
 		ResponseModel<Stock> response = findStock.findByCode(code);
 		if(response.getErrors().size() == 0)
-			return toViewModel(response);
+			return toOutputData(response);
 
 		return null;
 	}
 	
-	public StockViewModel save(StockViewModel viewModel) {
+	public StockOutputData save(StockOutputData viewModel) {
 		ResponseModel<Stock> response = addStock.add(toEntity(viewModel));
 		if(response.getErrors().size() == 0)
-			return toViewModel(response);
+			return toOutputData(response);
 
 		return null;
 
 	}
 
-	private StockViewModel toViewModel(ResponseModel<Stock> response) {
-		StockViewModel viewModel = new StockViewModel();
+	private StockOutputData toOutputData(ResponseModel<Stock> response) {
+		StockOutputData viewModel = new StockOutputData();
 		viewModel.setCode(response.getObject().getCode());
 		viewModel.setCompany(response.getObject().getCompanyName());
 		return viewModel;
 	}
 	
-	private Stock toEntity(StockViewModel viewModel) {
+	private Stock toEntity(StockOutputData viewModel) {
 		Stock entity = new Stock(viewModel.getCode());
 		entity.setCompanyName(viewModel.getCompany());
 		return entity;
