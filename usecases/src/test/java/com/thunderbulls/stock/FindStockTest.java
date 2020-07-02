@@ -1,6 +1,5 @@
 package com.thunderbulls.stock;
 
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -9,8 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.thunderbulls.ResponseModel;
-import com.thunderbulls.stock.input.AddStockInput;
-import com.thunderbulls.stock.output.FindStockOutput;
 import com.thunderbulls.stock.repository.StockRepository;
 
 public class FindStockTest {
@@ -24,9 +21,7 @@ public class FindStockTest {
 		stockCreator = new AddStock();
 		StockRepository sr = new MockStockRepository();
 
-		stockFinder.setOutput(new MockFindStockOutput());
 		stockFinder.setRepository(sr);
-		stockCreator.setOutput(new MockAddStockOutput());
 		stockCreator.setRepository(sr);
 
 		stockCreator.add(new Stock("AAAA1", "AAAA Corp"));
