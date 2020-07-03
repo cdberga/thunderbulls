@@ -11,7 +11,6 @@ import com.thunderbulls.ResponseModel;
 import com.thunderbulls.stock.repository.StockRepository;
 
 public class FindStockTest {
-
 	FindStock stockFinder;
 	AddStock stockCreator;
 
@@ -23,6 +22,9 @@ public class FindStockTest {
 
 		stockFinder.setRepository(sr);
 		stockCreator.setRepository(sr);
+		
+		stockFinder.setOutput(new MockFindStockOutput());
+		stockCreator.setOutput(new MockAddStockOutput());
 
 		stockCreator.add(new Stock("AAAA1", "AAAA Corp"));
 		stockCreator.add(new Stock("PETR4", "Petrobras"));

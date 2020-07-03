@@ -1,6 +1,6 @@
 package com.thunderbulls;
 
-public abstract class UseCase<T extends Repository, U> {
+public abstract class UseCase<T extends Repository> {
 
 	protected T repository;
 
@@ -11,6 +11,4 @@ public abstract class UseCase<T extends Repository, U> {
 	public void setRepository(T repo) {
 		this.repository = repo;
 	}
-
-	public abstract ResponseModel<U> createResponse(U object, String errorMessage);
 }

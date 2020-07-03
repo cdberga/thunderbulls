@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.thunderbulls.ResponseModel;
+import com.thunderbulls.stock.output.AddStockOutput;
 
 public class AddStockTest {
 
@@ -16,6 +17,7 @@ public class AddStockTest {
 	public void initialize() {
 		add = new AddStock();
 		add.setRepository(new MockStockRepository());
+		add.setOutput(new MockAddStockOutput());
 		
 		add.add(new Stock("VIVT4"));
 	}

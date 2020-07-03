@@ -6,6 +6,8 @@ import com.thunderbulls.stock.input.AddStockInput;
 import com.thunderbulls.stock.input.FindStockInput;
 
 public class StockController {
+	
+	// TODO: change outputdata and include view classes
 
 	private FindStockInput findStock;
 	private AddStockInput addStock;
@@ -18,8 +20,8 @@ public class StockController {
 		return null;
 	}
 	
-	public StockOutputData save(StockOutputData outputData) {
-		ResponseModel<Stock> response = addStock.add(toEntity(outputData));
+	public StockOutputData save(String code, String company) {
+		ResponseModel<Stock> response = addStock.add(new Stock(code, company));
 		if(response.getErrors().size() == 0)
 			return toOutputData(response);
 
@@ -34,12 +36,6 @@ public class StockController {
 		return outputData;
 	}
 	
-	private Stock toEntity(StockOutputData outputData) {
-		Stock entity = new Stock(outputData.getCode());
-		entity.setCompanyName(outputData.getCompany());
-		return entity;
-	}
-	
 	public void setStockFinderInput(FindStockInput finder) {
 		this.findStock = finder;
 	}
@@ -47,4 +43,5 @@ public class StockController {
 	public void setStockAddInput(AddStockInput add) {
 		this.addStock = add;
 	}
+
 }

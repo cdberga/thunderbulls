@@ -2,11 +2,11 @@ package com.thunderbulls.adapter.presenter;
 
 import org.junit.Test;
 
-public class StockPresenterTest {
+public class StockFindPresenterTest {
 
 	@Test
 	public void findStockByCode() {
-		StockPresenter p = new StockPresenter();
+		StockFindPresenter p = new StockFindPresenter();
 	}
 
 }
