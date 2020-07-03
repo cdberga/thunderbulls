@@ -6,13 +6,16 @@ import com.thunderbulls.ResponseModel;
 import com.thunderbulls.stock.Stock;
 import com.thunderbulls.stock.input.FindStockInput;
 import com.thunderbulls.stock.output.FindStockOutput;
+import com.thunderbulls.stock.repository.StockRepository;
 
 public class MockFindStockInput implements FindStockInput {
 
 	FindStockOutput output;
+	StockRepository repository;
 	
-	public MockFindStockInput(FindStockOutput findOutput) {
+	public MockFindStockInput(FindStockOutput findOutput, StockRepository repository) {
 		setOutput(findOutput);
+		setRepository(repository);
 	}
 
 	public ResponseModel<Stock> findByCode(String code) {
@@ -29,5 +32,9 @@ public class MockFindStockInput implements FindStockInput {
 
 	public void setOutput(FindStockOutput output) {
 		this.output = output;
+	}
+
+	public void setRepository(StockRepository repository) {
+		this.repository = repository;
 	}
 }

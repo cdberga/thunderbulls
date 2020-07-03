@@ -3,17 +3,16 @@ package com.thunderbulls.stock;
 import java.util.List;
 
 import com.thunderbulls.ResponseModel;
-import com.thunderbulls.UseCase;
 import com.thunderbulls.stock.input.FindStockInput;
 import com.thunderbulls.stock.output.FindStockOutput;
 import com.thunderbulls.stock.repository.StockRepository;
 
-public class FindStock extends UseCase<StockRepository> implements FindStockInput {
+public class FindStock implements FindStockInput {
 
-	FindStockOutput output;
+	private FindStockOutput output;
+	private StockRepository repository;
 
 	public FindStock() {
-		super();
 	}
 
 	public ResponseModel<Stock> findByCode(String code) {
@@ -29,6 +28,11 @@ public class FindStock extends UseCase<StockRepository> implements FindStockInpu
 	@Override
 	public void setOutput(FindStockOutput output) {
 		this.output = output;
+	}
+
+	@Override
+	public void setRepository(StockRepository repository) {
+		this.repository = repository;
 	}
 
 }

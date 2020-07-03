@@ -3,6 +3,9 @@ package com.thunderbulls.adapter.controller;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.thunderbulls.stock.MockAddStockOutput;
+import com.thunderbulls.stock.MockFindStockOutput;
+import com.thunderbulls.stock.MockStockRepository;
 import com.thunderbulls.stock.input.AddStockInput;
 import com.thunderbulls.stock.input.FindStockInput;
 
@@ -15,14 +18,14 @@ public class StockControllerTest {
 	
 	@Before
 	public void initialize() {
-//		controller = new StockController();
-//		addStock = new MockAddStockInput(new MockAddStockOutput());
-//		findStock = new MockFindStockInput(new MockFindStockOutput());
-//
-//		controller.setStockAddInput(addStock);
-//		controller.setStockFinderInput(findStock);
-//
-//		controller.save("PETR4", "Petrobras");
+		controller = new StockController();
+		addStock = new MockAddStockInput(new MockAddStockOutput(), new MockStockRepository());
+		findStock = new MockFindStockInput(new MockFindStockOutput(), new MockStockRepository());
+
+		controller.setStockAddInput(addStock);
+		controller.setStockFinderInput(findStock);
+
+		controller.save("PETR4", "Petrobras");
 	}
 
 	@Test

@@ -1,17 +1,16 @@
 package com.thunderbulls.stock;
 
 import com.thunderbulls.ResponseModel;
-import com.thunderbulls.UseCase;
 import com.thunderbulls.stock.input.AddStockInput;
 import com.thunderbulls.stock.output.AddStockOutput;
 import com.thunderbulls.stock.repository.StockRepository;
 
-public class AddStock extends UseCase<StockRepository> implements AddStockInput {
+public class AddStock implements AddStockInput {
 
 	private AddStockOutput output;
+	private StockRepository repository;
 
 	public AddStock() {
-		super();
 	}
 
 	public ResponseModel<Stock> add(Stock stock) {
@@ -27,6 +26,11 @@ public class AddStock extends UseCase<StockRepository> implements AddStockInput 
 	@Override
 	public void setOutput(AddStockOutput output) {
 		this.output = output;
+	}
+
+	@Override
+	public void setRepository(StockRepository repository) {
+		this.repository = repository;
 	}
 }
 

@@ -1,14 +1,11 @@
 package com.thunderbulls;
 
-public abstract class UseCase<T extends Repository> {
+import com.thunderbulls.stock.output.OutputBoundary;
+import com.thunderbulls.stock.repository.Repository;
 
-	protected T repository;
+public interface UseCase<T extends Repository, U extends OutputBoundary> {
 
-	public UseCase() {
-		super();
-	}
-
-	public void setRepository(T repo) {
-		this.repository = repo;
-	}
+	public void setRepository(T repository);
+	
+	public void setOutput(U output);
 }

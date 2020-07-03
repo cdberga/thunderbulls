@@ -5,7 +5,7 @@ import java.util.List;
 import com.thunderbulls.ResponseModel;
 import com.thunderbulls.stock.Stock;
 
-public interface FindStockOutput {
+public interface FindStockOutput extends OutputBoundary{
 
 	ResponseModel<Stock> createResponse(Stock stock, String error);
 
