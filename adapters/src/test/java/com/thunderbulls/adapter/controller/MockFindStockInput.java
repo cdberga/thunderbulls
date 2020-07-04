@@ -18,7 +18,6 @@ public class MockFindStockInput implements FindStockInput {
 	}
 
 	public ResponseModel<List<Stock>> findByCorpName(String corpName) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

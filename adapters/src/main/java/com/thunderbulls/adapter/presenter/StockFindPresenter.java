@@ -13,7 +13,6 @@ public class StockFindPresenter implements FindStockOutput{
 	}
 
 	public ResponseModel<List<Stock>> createResponse(List<Stock> list, String error) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

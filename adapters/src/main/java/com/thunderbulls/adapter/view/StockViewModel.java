@@ -1,6 +1,6 @@
-package com.thunderbulls.adapter.controller;
+package com.thunderbulls.adapter.view;
 
-public class StockOutputData {
+public class StockViewModel {
 
 	private String code;
 	private String company;
