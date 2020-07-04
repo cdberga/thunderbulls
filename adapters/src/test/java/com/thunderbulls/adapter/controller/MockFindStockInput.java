@@ -10,31 +10,22 @@ import com.thunderbulls.stock.repository.StockRepository;
 
 public class MockFindStockInput implements FindStockInput {
 
-	FindStockOutput output;
-	StockRepository repository;
-	
-	public MockFindStockInput(FindStockOutput findOutput, StockRepository repository) {
-		setOutput(findOutput);
-		setRepository(repository);
+	public MockFindStockInput() {
 	}
 
 	public ResponseModel<Stock> findByCode(String code) {
-		return output.createResponse(new Stock(code, "Petrobras"), null);
+		return new ResponseModel<Stock>(new Stock(code), null);
 	}
 
 	public ResponseModel<List<Stock>> findByCorpName(String corpName) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public ResponseModel<Stock> createResponse(Stock object, String errorMessage) {
-		return new ResponseModel<Stock>(object, null);
-	}
-
 	public void setOutput(FindStockOutput output) {
-		this.output = output;
 	}
 
 	public void setRepository(StockRepository repository) {
-		this.repository = repository;
 	}
+
 }

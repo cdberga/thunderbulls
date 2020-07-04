@@ -1,8 +1,9 @@
-package com.thunderbulls.stock;
+package com.thunderbulls.stock.mock;
 
 import java.util.List;
 
 import com.thunderbulls.ResponseModel;
+import com.thunderbulls.stock.Stock;
 import com.thunderbulls.stock.output.FindStockOutput;
 
 public class MockFindStockOutput implements FindStockOutput {

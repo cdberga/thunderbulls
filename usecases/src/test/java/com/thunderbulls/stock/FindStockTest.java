@@ -8,6 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.thunderbulls.ResponseModel;
+import com.thunderbulls.stock.mock.MockAddStockOutput;
+import com.thunderbulls.stock.mock.MockFindStockOutput;
+import com.thunderbulls.stock.mock.MockStockRepository;
 import com.thunderbulls.stock.repository.StockRepository;
 
 public class FindStockTest {

@@ -1,6 +1,7 @@
-package com.thunderbulls.stock;
+package com.thunderbulls.stock.mock;
 
 import com.thunderbulls.ResponseModel;
+import com.thunderbulls.stock.Stock;
 import com.thunderbulls.stock.output.AddStockOutput;
 
 public class MockAddStockOutput implements AddStockOutput {
