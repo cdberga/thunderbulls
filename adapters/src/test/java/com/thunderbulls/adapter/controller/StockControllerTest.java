@@ -1,13 +1,13 @@
 package com.thunderbulls.adapter.controller;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.thunderbulls.adapter.view.StockView;
-import com.thunderbulls.adapter.view.StockViewModel;
 import com.thunderbulls.stock.input.AddStockInput;
 import com.thunderbulls.stock.input.FindStockInput;
 
@@ -22,10 +22,7 @@ public class StockControllerTest {
 	public void initialize() {
 		addStock = new MockAddStockInput();
 		findStock = new MockFindStockInput();
-		controller = new StockController();
-
-		controller.setStockAddInput(addStock);
-		controller.setStockFinderInput(findStock);
+		controller = new StockController(findStock, addStock);
 
 		controller.save("PETR4", "Petrobras");
 	}
@@ -38,4 +35,9 @@ public class StockControllerTest {
 		assertTrue(stockView.getViewModel().getCode().equals("PETR4"));
 	}
 
+	@Test
+	public void addExistentStock() {
+		StockView add = controller.save("PETR4", "Petrobras");
+		assertNull(add);
+	}
 }

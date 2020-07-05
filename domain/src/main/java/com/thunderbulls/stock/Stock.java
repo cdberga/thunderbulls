@@ -29,4 +29,15 @@ public class Stock {
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Stock newStock = (Stock)obj;
+		return this.getCode().equals(newStock.getCode());
+	}
+
+	@Override
+	public int hashCode() {
+		return this.getCode().hashCode();
+	}
 }
