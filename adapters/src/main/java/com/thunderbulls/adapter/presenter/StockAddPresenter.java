@@ -16,4 +16,11 @@ public class StockAddPresenter implements AddStockOutput{
 	public ResponseModel<List<Stock>> createResponse(List<Stock> list, String error) {
 		return null;
 	}
+	
+	public StockViewModel toViewModel(ResponseModel<Stock> output) {
+		StockViewModel viewModel = new StockViewModel(
+				output.getObject().getCode(), 
+				output.getObject().getCompanyName());
+		return viewModel;
+	}
 }

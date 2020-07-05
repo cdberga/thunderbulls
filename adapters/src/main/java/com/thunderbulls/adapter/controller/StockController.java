@@ -1,41 +1,64 @@
 package com.thunderbulls.adapter.controller;
 
 import com.thunderbulls.ResponseModel;
-import com.thunderbulls.adapter.view.StockViewModel;
+import com.thunderbulls.adapter.presenter.StockAddPresenter;
+import com.thunderbulls.adapter.presenter.StockFindPresenter;
+import com.thunderbulls.adapter.view.StockView;
+import com.thunderbulls.stock.AddStock;
+import com.thunderbulls.stock.FindStock;
 import com.thunderbulls.stock.Stock;
 import com.thunderbulls.stock.input.AddStockInput;
 import com.thunderbulls.stock.input.FindStockInput;
 
 public class StockController {
 	
-	// TODO: include view classes
-	//	TODO: Change toViewModel method to Presenter class
+	public StockController() {
+		super();
+		findPresenter = new StockFindPresenter();
+		addPresenter = new StockAddPresenter();
+		findStock = new FindStock();
+		addStock = new AddStock();
+
+		findStock.setOutput(findPresenter);
+		addStock.setOutput(addPresenter);
+	}
+
+	public StockController(FindStockInput findInput, AddStockInput addInput) {
+		super();
+		findPresenter = new StockFindPresenter();
+		addPresenter = new StockAddPresenter();
+		findStock = findInput;
+		addStock = addInput;
+
+		findStock.setOutput(findPresenter);
+		addStock.setOutput(addPresenter);
+	}
 
 	private FindStockInput findStock;
 	private AddStockInput addStock;
+	private StockFindPresenter findPresenter;
+	private StockAddPresenter addPresenter;
 
-	public StockViewModel findStock(String code) {
+	public StockView findStock(String code) {
 		ResponseModel<Stock> response = findStock.findByCode(code);
-		if(response.getErrors().size() == 0)
-			return toViewModel(response);
-
-		return null;
+		return getStockView(response);
 	}
-	
-	public StockViewModel save(String code, String company) {
+
+	public StockView save(String code, String company) {
 		ResponseModel<Stock> response = addStock.add(new Stock(code, company));
 		if(response.getErrors().size() == 0)
-			return toViewModel(response);
-
+			return new StockView(addPresenter.toViewModel(response));
+		
 		return null;
-
+		
 	}
-
-	private StockViewModel toViewModel(ResponseModel<Stock> response) {
-		StockViewModel viewModel = new StockViewModel();
-		viewModel.setCode(response.getObject().getCode());
-		viewModel.setCompany(response.getObject().getCompanyName());
-		return viewModel;
+	
+	private StockView getStockView(ResponseModel<Stock> response) {
+		if(response.getErrors().size() == 0) {
+			return new StockView(findPresenter.toViewModel(response));
+		}
+		
+		return null;
 	}
 	
 	public void setStockFinderInput(FindStockInput finder) {
