@@ -38,6 +38,6 @@ public class StockControllerTest {
 	@Test
 	public void addExistentStock() {
 		StockView add = controller.save("PETR4", "Petrobras");
-		assertNull(add);
+		assertNull(add.getViewModel());
 	}
 }

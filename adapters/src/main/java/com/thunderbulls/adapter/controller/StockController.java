@@ -49,7 +49,7 @@ public class StockController {
 		if(response.getErrors().size() == 0)
 			return new StockView(addPresenter.toViewModel(response));
 		
-		return null;
+		return new StockView(null);
 		
 	}
 	
@@ -58,7 +58,7 @@ public class StockController {
 			return new StockView(findPresenter.toViewModel(response));
 		}
 		
-		return null;
+		return new StockView(null);
 	}
 	
 	public void setStockFinderInput(FindStockInput finder) {
