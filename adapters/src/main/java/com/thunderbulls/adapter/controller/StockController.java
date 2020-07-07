@@ -13,38 +13,34 @@ import com.thunderbulls.stock.input.FindStockInput;
 
 public class StockController {
 	
-	public StockController() {
-		super();
-		findPresenter = new StockFindPresenter();
-		addPresenter = new StockAddPresenter();
-		findStock = new FindStock();
-		addStock = new AddStock();
-
-		findStock.setOutput(findPresenter);
-		addStock.setOutput(addPresenter);
-		
-		findStock.setRepository(new StockDataAccess());
-		addStock.setRepository(new StockDataAccess());
-	}
-
-	public StockController(FindStockInput findInput, AddStockInput addInput) {
-		super();
-		findPresenter = new StockFindPresenter();
-		addPresenter = new StockAddPresenter();
-		findStock = findInput;
-		addStock = addInput;
-
-		findStock.setOutput(findPresenter);
-		addStock.setOutput(addPresenter);
-		
-		findStock.setRepository(new StockDataAccess());
-		addStock.setRepository(new StockDataAccess());
-	}
-
 	private FindStockInput findStock;
 	private AddStockInput addStock;
 	private StockFindPresenter findPresenter;
 	private StockAddPresenter addPresenter;
+
+	public StockController() {
+		super();
+		initData(new FindStock(), new AddStock());
+	}
+
+	public StockController(FindStockInput findInput, AddStockInput addInput) {
+		super();
+		initData(findInput, addInput);
+	}
+
+	private void initData(FindStockInput findInput, AddStockInput addInput) {
+		findPresenter = new StockFindPresenter();
+		addPresenter = new StockAddPresenter();
+		findStock = new FindStock();
+		addStock = new AddStock();
+		
+		findStock.setOutput(findPresenter);
+		addStock.setOutput(addPresenter);
+		
+		findStock.setRepository(new StockDataAccess());
+		addStock.setRepository(new StockDataAccess());
+	}
+
 
 	public StockView findStock(String code) {
 		ResponseModel<Stock> response = findStock.findByCode(code);
