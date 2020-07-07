@@ -22,7 +22,7 @@ public class FindStock implements FindStockInput {
 
 	public ResponseModel<List<Stock>> findByCorpName(String corpName) {
 		List<Stock> list = repository.findByCorpName(corpName);
-		return output.createResponse(list, null);
+		return output.createListResponse(list, null);
 	}
 
 	@Override

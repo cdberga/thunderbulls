@@ -14,18 +14,22 @@ public class StockFindPresenter implements FindStockOutput{
 		return new ResponseModel<Stock>(stock, error);
 	}
 
-	public ResponseModel<List<Stock>> createResponse(List<Stock> list, String error) {
+	public ResponseModel<List<Stock>> createListResponse(List<Stock> list, String error) {
 		return new ResponseModel<List<Stock>>(list, error);
 	}
 
 	public StockViewModel toViewModel(ResponseModel<Stock> response) {
-		if(response.getObject() == null)
+		if(response == null || response.getObject() == null)
 			return null;
 
 		return new StockViewModel(response.getObject().getCode(), response.getObject().getCompanyName());
 	}
 	
 	public List<StockViewModel> toViewModelList(ResponseModel<List<Stock>> response) {
+		
+		if(response == null || response.getObject() == null)
+			return null;
+
 		List<StockViewModel> list = new ArrayList<StockViewModel>();
 		response.getObject().stream()
 				.forEach(stock -> list.add(

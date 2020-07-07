@@ -9,6 +9,6 @@ public interface FindStockOutput extends OutputBoundary{
 
 	ResponseModel<Stock> createResponse(Stock stock, String error);
 
-	ResponseModel<List<Stock>> createResponse(List<Stock> list, String error);
+	ResponseModel<List<Stock>> createListResponse(List<Stock> list, String error);
 	
 }

@@ -14,7 +14,7 @@ public class MockFindStockOutput implements FindStockOutput {
 	}
 
 	@Override
-	public ResponseModel<List<Stock>> createResponse(List<Stock> list, String error) {
+	public ResponseModel<List<Stock>> createListResponse(List<Stock> list, String error) {
 		return new ResponseModel<List<Stock>>(list, error);
 	}
 
