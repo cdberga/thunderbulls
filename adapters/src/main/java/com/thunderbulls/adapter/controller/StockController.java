@@ -1,7 +1,5 @@
 package com.thunderbulls.adapter.controller;
 
-import java.io.IOException;
-
 import com.thunderbulls.ResponseModel;
 import com.thunderbulls.adapter.data.StockDataAccess;
 import com.thunderbulls.adapter.presenter.StockAddPresenter;
