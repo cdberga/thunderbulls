@@ -23,7 +23,7 @@ public class StockFindPresenterTest {
 	public void createResponseOnNullStockList() {
 		StockFindPresenter p = new StockFindPresenter();
 		ResponseModel<List<Stock>> rm = p.createListResponse(null, null);
-		assertNull(rm);
+		assertNull(rm.getObject());
 	}
 	
 	@Test
@@ -33,6 +33,11 @@ public class StockFindPresenterTest {
 		assertNull(vm);
 
 	}
-//	List<StockViewModel> toViewModelList(ResponseModel<List<Stock>> response) {
-
+	
+	@Test
+	public void viewModelFromNullResponseList() {
+		StockFindPresenter p = new StockFindPresenter();
+		List<StockViewModel> list = p.toViewModelList(null);
+		assertNull(list);
+	}
 }
