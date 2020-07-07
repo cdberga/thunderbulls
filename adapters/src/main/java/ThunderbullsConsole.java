@@ -23,7 +23,7 @@ public class ThunderbullsConsole {
 
 	private static void saving() {
 		try {
-			StockView view = controller.save("VALE5", "Vale SA");
+			StockView view = controller.save("PETR4", "Petrobras SA");
 			StockViewModel model = view.getViewModel();
 
 			System.out.println("Stock: " + model.getCode() + " - Company: " + model.getCompany() + " was saved.");
@@ -34,10 +34,10 @@ public class ThunderbullsConsole {
 
 	private static void finding() {
 		try {
-			StockView view = controller.findStock("PETR4");
+			StockView view = controller.findStock("VALE5");
 			StockViewModel model = view.getViewModel();
 			if (model == null) {
-				System.out.println("Stock: \"PETR4\" - was not found");
+				System.out.println("Stock: \"VALE5\" - was not found");
 			} else {
 				System.out.println("Stock: " + model.getCode() + " - Company: " + model.getCompany() + ".");
 			}
