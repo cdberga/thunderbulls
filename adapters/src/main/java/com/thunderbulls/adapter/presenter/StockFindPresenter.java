@@ -19,6 +19,9 @@ public class StockFindPresenter implements FindStockOutput{
 	}
 
 	public StockViewModel toViewModel(ResponseModel<Stock> response) {
+		if(response.getObject() == null)
+			return null;
+
 		return new StockViewModel(response.getObject().getCode(), response.getObject().getCompanyName());
 	}
 	

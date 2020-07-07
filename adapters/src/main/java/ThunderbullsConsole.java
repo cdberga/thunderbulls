@@ -36,7 +36,11 @@ public class ThunderbullsConsole {
 		try {
 			StockView view = controller.findStock("PETR4");
 			StockViewModel model = view.getViewModel();
-			System.out.println("Stock: " + model.getCode() + " - Company: " + model.getCompany() + ".");
+			if (model == null) {
+				System.out.println("Stock: \"PETR4\" - was not found");
+			} else {
+				System.out.println("Stock: " + model.getCode() + " - Company: " + model.getCompany() + ".");
+			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
