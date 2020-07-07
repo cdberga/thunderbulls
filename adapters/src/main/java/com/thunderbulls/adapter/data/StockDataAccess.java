@@ -35,10 +35,16 @@ public class StockDataAccess implements StockRepository {
 	}
 
 	public StockDataEntity toDataEntity(Stock stock) {
+		if(stock == null)
+			return null;
+		
 		return new StockDataEntity(stock.getCode(), stock.getCompanyName());
 	}
 	
 	private Stock toDomain(StockDataEntity dataEntity) {
+		if(dataEntity == null)
+			return null;
+		
 		return new Stock(dataEntity.getCode(), dataEntity.getCompany());
 	}
 

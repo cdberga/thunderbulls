@@ -35,9 +35,8 @@ public class StockControllerTest {
 		assertTrue(stockView.getViewModel().getCode().equals("PETR4"));
 	}
 
-	@Test
+	@Test(expected = RuntimeException.class)
 	public void addExistentStock() {
-		StockView add = controller.save("PETR4", "Petrobras");
-		assertNull(add.getViewModel());
+		controller.save("PETR4", "Petrobras");
 	}
 }

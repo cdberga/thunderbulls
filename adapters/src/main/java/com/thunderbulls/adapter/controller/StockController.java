@@ -1,6 +1,9 @@
 package com.thunderbulls.adapter.controller;
 
+import java.io.IOException;
+
 import com.thunderbulls.ResponseModel;
+import com.thunderbulls.adapter.data.StockDataAccess;
 import com.thunderbulls.adapter.presenter.StockAddPresenter;
 import com.thunderbulls.adapter.presenter.StockFindPresenter;
 import com.thunderbulls.adapter.view.StockView;
@@ -21,6 +24,9 @@ public class StockController {
 
 		findStock.setOutput(findPresenter);
 		addStock.setOutput(addPresenter);
+		
+		findStock.setRepository(new StockDataAccess());
+		addStock.setRepository(new StockDataAccess());
 	}
 
 	public StockController(FindStockInput findInput, AddStockInput addInput) {
@@ -32,6 +38,9 @@ public class StockController {
 
 		findStock.setOutput(findPresenter);
 		addStock.setOutput(addPresenter);
+		
+		findStock.setRepository(new StockDataAccess());
+		addStock.setRepository(new StockDataAccess());
 	}
 
 	private FindStockInput findStock;
@@ -48,9 +57,8 @@ public class StockController {
 		ResponseModel<Stock> response = addStock.add(new Stock(code, company));
 		if(response.getErrors().size() == 0)
 			return new StockView(addPresenter.toViewModel(response));
-		
-		return new StockView(null);
-		
+
+		throw new RuntimeException(response.getErrors().get(0));
 	}
 	
 	private StockView getStockView(ResponseModel<Stock> response) {
@@ -58,7 +66,7 @@ public class StockController {
 			return new StockView(findPresenter.toViewModel(response));
 		}
 		
-		return new StockView(null);
+		throw new RuntimeException(response.getErrors().get(0));
 	}
 	
 	public void setStockFinderInput(FindStockInput finder) {

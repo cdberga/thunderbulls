@@ -4,3 +4,4 @@
 target/
 */.sts4-cache
 */.attach_pid*
+adapters/stocks.dat
