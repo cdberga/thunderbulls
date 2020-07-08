@@ -46,4 +46,18 @@ public class FindStockTest {
 		List<Stock> list = response.getObject();
 		assertTrue(list.size() == 2);
 	}
+	
+	@Test
+	public void canFindWithNoOutput() {
+		stockFinder.setOutput(null);
+		ResponseModel<Stock> response = stockFinder.findByCode("AAAA1");
+		assertTrue(response.getErrors().size() == 1);
+	}
+	
+	@Test
+	public void canFindWithNoRepository() {
+		stockFinder.setRepository(null);
+		ResponseModel<Stock> response = stockFinder.findByCode("AAAA1");
+		assertTrue(response.getErrors().size() == 1);
+	}
 }
