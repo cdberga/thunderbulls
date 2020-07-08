@@ -9,7 +9,6 @@ import org.junit.Test;
 import com.thunderbulls.ResponseModel;
 import com.thunderbulls.stock.mock.MockAddStockOutput;
 import com.thunderbulls.stock.mock.MockStockRepository;
-import com.thunderbulls.stock.output.AddStockOutput;
 
 public class AddStockTest {
 
@@ -34,5 +33,20 @@ public class AddStockTest {
 	public void canAddNewStock() {
 		ResponseModel<Stock> response = add.add(new Stock("RADL3"));
 		assertTrue(response.getErrors().size() == 0);
+	}
+	
+	
+	@Test
+	public void canFindWithNoOutput() {
+		add.setOutput(null);
+		ResponseModel<Stock> response = add.add(new Stock("BAAA1"));
+		assertTrue(response.getErrors().size() == 1);
+	}
+	
+	@Test
+	public void canFindWithNoRepository() {
+		add.setRepository(null);
+		ResponseModel<Stock> response = add.add(new Stock("BAAA1"));
+		assertTrue(response.getErrors().size() == 1);
 	}
 }
