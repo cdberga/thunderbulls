@@ -31,8 +31,8 @@ public class StockController {
 	private void initData(FindStockInput findInput, AddStockInput addInput) {
 		findPresenter = new StockFindPresenter();
 		addPresenter = new StockAddPresenter();
-		findStock = new FindStock();
-		addStock = new AddStock();
+		findStock = findInput;
+		addStock = addInput;
 		
 		findStock.setOutput(findPresenter);
 		addStock.setOutput(addPresenter);

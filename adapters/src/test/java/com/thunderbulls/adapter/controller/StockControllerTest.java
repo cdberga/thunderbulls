@@ -11,12 +11,11 @@ import com.thunderbulls.stock.input.AddStockInput;
 import com.thunderbulls.stock.input.FindStockInput;
 
 public class StockControllerTest {
-	
-	StockController controller;
 
+	StockController controller;
 	AddStockInput addStock;
 	FindStockInput findStock;
-	
+
 	@Before
 	public void initialize() {
 		addStock = new MockAddStockInput();

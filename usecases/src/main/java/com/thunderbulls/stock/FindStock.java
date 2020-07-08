@@ -44,5 +44,4 @@ public class FindStock implements FindStockInput {
 	public void setRepository(StockRepository repository) {
 		this.repository = Optional.ofNullable(repository);
 	}
-
 }
