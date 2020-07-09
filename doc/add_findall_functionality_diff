@@ -1,0 +1,287 @@
+diff --git a/adapters/src/main/java/ThunderbullsConsole.java b/adapters/src/main/java/ThunderbullsConsole.java
+index dbc1874..35fe886 100644
+--- a/adapters/src/main/java/ThunderbullsConsole.java
++++ b/adapters/src/main/java/ThunderbullsConsole.java
+@@ -1,4 +1,7 @@
++import java.util.List;
++
+ import com.thunderbulls.adapter.controller.StockController;
++import com.thunderbulls.adapter.view.StockListView;
+ import com.thunderbulls.adapter.view.StockView;
+ import com.thunderbulls.adapter.view.StockViewModel;
+ import com.thunderbulls.stock.AddStock;
+@@ -17,10 +20,25 @@ public class ThunderbullsConsole {
+ 		addStock = new AddStock();
+ 		findStock = new FindStock();
+ 		controller = new StockController(findStock, addStock);
++		list();
+ 		saving();
+ 		finding();
+ 	}
+ 
++	private static void list() {
++		try {
++			StockListView view = controller.findAll();
++			List<StockViewModel> list = view.getList();
++			
++			for (StockViewModel model : list) {
++				System.out.println("Stock: " + model.getCode() + " - Company: " + model.getCompany() + ".");
++			}
++
++		} catch (Exception e) {
++			System.out.println(e.getMessage());
++		}
++	}
++
+ 	private static void saving() {
+ 		try {
+ 			StockView view = controller.save("PETR4", "Petrobras SA");
+diff --git a/adapters/src/main/java/com/thunderbulls/adapter/controller/StockController.java b/adapters/src/main/java/com/thunderbulls/adapter/controller/StockController.java
+index e02179a..8396055 100644
+--- a/adapters/src/main/java/com/thunderbulls/adapter/controller/StockController.java
++++ b/adapters/src/main/java/com/thunderbulls/adapter/controller/StockController.java
+@@ -1,10 +1,14 @@
+ package com.thunderbulls.adapter.controller;
+ 
++import java.util.List;
++
+ import com.thunderbulls.ResponseModel;
+ import com.thunderbulls.adapter.data.StockDataAccess;
+ import com.thunderbulls.adapter.presenter.StockAddPresenter;
+ import com.thunderbulls.adapter.presenter.StockFindPresenter;
++import com.thunderbulls.adapter.view.StockListView;
+ import com.thunderbulls.adapter.view.StockView;
++import com.thunderbulls.adapter.view.StockViewModel;
+ import com.thunderbulls.stock.AddStock;
+ import com.thunderbulls.stock.FindStock;
+ import com.thunderbulls.stock.Stock;
+@@ -63,6 +67,16 @@ public class StockController {
+ 		throw new RuntimeException(response.getErrors().get(0));
+ 	}
+ 	
++	private StockListView getStockListView(ResponseModel<List<Stock>> response) {
++		List<StockViewModel> list;
++		if(response.getErrors().size() == 0) {
++			list = findPresenter.toViewModelList(response);
++			return new StockListView(list);
++		}
++		
++		throw new RuntimeException(response.getErrors().get(0));
++	}
++	
+ 	public void setStockFinderInput(FindStockInput finder) {
+ 		this.findStock = finder;
+ 	}
+@@ -71,4 +85,9 @@ public class StockController {
+ 		this.addStock = add;
+ 	}
+ 
++	public StockListView findAll() {
++		ResponseModel<List<Stock>> response = findStock.findAll();
++		return getStockListView(response);
++	}
++
+ }
+diff --git a/adapters/src/main/java/com/thunderbulls/adapter/data/StockDataAccess.java b/adapters/src/main/java/com/thunderbulls/adapter/data/StockDataAccess.java
+index 993b9fd..49739b4 100644
+--- a/adapters/src/main/java/com/thunderbulls/adapter/data/StockDataAccess.java
++++ b/adapters/src/main/java/com/thunderbulls/adapter/data/StockDataAccess.java
+@@ -59,4 +59,13 @@ public class StockDataAccess implements StockRepository {
+ 		this.database = database;
+ 	}
+ 
++	@Override
++	public List<Stock> findAll() {
++		List<StockDataEntity> list = database.findAll();
++		List<Stock> stockList = new ArrayList<Stock>();
++		list.stream()
++				.forEach(item -> stockList.add(toDomain(item)));
++		return stockList;
++	}
++
+ }
+diff --git a/adapters/src/main/java/com/thunderbulls/adapter/data/StockDatabase.java b/adapters/src/main/java/com/thunderbulls/adapter/data/StockDatabase.java
+index cf8765a..ec13021 100644
+--- a/adapters/src/main/java/com/thunderbulls/adapter/data/StockDatabase.java
++++ b/adapters/src/main/java/com/thunderbulls/adapter/data/StockDatabase.java
+@@ -10,4 +10,6 @@ public interface StockDatabase {
+ 	
+ 	StockDataEntity save(StockDataEntity dataEntity);
+ 
++	List<StockDataEntity> findAll();
++
+ }
+diff --git a/adapters/src/main/java/com/thunderbulls/adapter/data/StockFileDatabase.java b/adapters/src/main/java/com/thunderbulls/adapter/data/StockFileDatabase.java
+index 8bd765e..d6bff0a 100644
+--- a/adapters/src/main/java/com/thunderbulls/adapter/data/StockFileDatabase.java
++++ b/adapters/src/main/java/com/thunderbulls/adapter/data/StockFileDatabase.java
+@@ -99,4 +99,13 @@ public class StockFileDatabase implements StockDatabase{
+ 			throw new RuntimeException("There was a problem reading database.");
+ 		}
+ 	}
++
++	@Override
++	public List<StockDataEntity> findAll() {
++		if (stockList.isEmpty()) {
++			readFile();
++		}
++
++		return stockList;
++	}
+ }
+diff --git a/adapters/src/main/java/com/thunderbulls/adapter/view/StockListView.java b/adapters/src/main/java/com/thunderbulls/adapter/view/StockListView.java
+new file mode 100644
+index 0000000..3bd4dbd
+--- /dev/null
++++ b/adapters/src/main/java/com/thunderbulls/adapter/view/StockListView.java
+@@ -0,0 +1,21 @@
++package com.thunderbulls.adapter.view;
++
++import java.util.List;
++
++public class StockListView {
++
++	public StockListView(List<StockViewModel> list) {
++		super();
++		this.list = list;
++	}
++
++	List<StockViewModel> list;
++
++	public List<StockViewModel> getList() {
++		return list;
++	}
++
++	public void setList(List<StockViewModel> list) {
++		this.list = list;
++	}
++}
+diff --git a/adapters/src/test/java/com/thunderbulls/adapter/controller/MockFindStockInput.java b/adapters/src/test/java/com/thunderbulls/adapter/controller/MockFindStockInput.java
+index 527bc29..080979a 100644
+--- a/adapters/src/test/java/com/thunderbulls/adapter/controller/MockFindStockInput.java
++++ b/adapters/src/test/java/com/thunderbulls/adapter/controller/MockFindStockInput.java
+@@ -1,5 +1,6 @@
+ package com.thunderbulls.adapter.controller;
+ 
++import java.util.Arrays;
+ import java.util.List;
+ 
+ import com.thunderbulls.ResponseModel;
+@@ -27,4 +28,9 @@ public class MockFindStockInput implements FindStockInput {
+ 	public void setRepository(StockRepository repository) {
+ 	}
+ 
++	@Override
++	public ResponseModel<List<Stock>> findAll() {
++		return new ResponseModel<List<Stock>>(Arrays.asList(new Stock("PETR4", "Petrobras"), new Stock("VALE5", "VALE SA")));
++	}
++
+ }
+diff --git a/adapters/src/test/java/com/thunderbulls/adapter/controller/StockControllerTest.java b/adapters/src/test/java/com/thunderbulls/adapter/controller/StockControllerTest.java
+index 2eb47f4..98dfa7e 100644
+--- a/adapters/src/test/java/com/thunderbulls/adapter/controller/StockControllerTest.java
++++ b/adapters/src/test/java/com/thunderbulls/adapter/controller/StockControllerTest.java
+@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
+ import org.junit.Before;
+ import org.junit.Test;
+ 
++import com.thunderbulls.adapter.view.StockListView;
+ import com.thunderbulls.adapter.view.StockView;
+ import com.thunderbulls.stock.input.AddStockInput;
+ import com.thunderbulls.stock.input.FindStockInput;
+@@ -37,4 +38,10 @@ public class StockControllerTest {
+ 	public void addExistentStock() {
+ 		controller.save("PETR4", "Petrobras");
+ 	}
++	
++	@Test
++	public void findAllStocks() {
++		StockListView view = controller.findAll();
++		assertTrue(view.getList().size() > 0);
++	}
+ }
+diff --git a/adapters/src/test/java/com/thunderbulls/adapter/data/MockStockDatabase.java b/adapters/src/test/java/com/thunderbulls/adapter/data/MockStockDatabase.java
+index 8879297..24e4576 100644
+--- a/adapters/src/test/java/com/thunderbulls/adapter/data/MockStockDatabase.java
++++ b/adapters/src/test/java/com/thunderbulls/adapter/data/MockStockDatabase.java
+@@ -30,4 +30,9 @@ public class MockStockDatabase implements StockDatabase{
+ 		stockList.add(stock);
+ 		return stock;
+ 	}
++
++	@Override
++	public List<StockDataEntity> findAll() {
++		return stockList;
++	}
+ }
+diff --git a/usecases/src/main/java/com/thunderbulls/stock/FindStock.java b/usecases/src/main/java/com/thunderbulls/stock/FindStock.java
+index 8972472..d19c0eb 100644
+--- a/usecases/src/main/java/com/thunderbulls/stock/FindStock.java
++++ b/usecases/src/main/java/com/thunderbulls/stock/FindStock.java
+@@ -44,4 +44,14 @@ public class FindStock implements FindStockInput {
+ 	public void setRepository(StockRepository repository) {
+ 		this.repository = Optional.ofNullable(repository);
+ 	}
++
++	@Override
++	public ResponseModel<List<Stock>> findAll() {
++		try {
++			List<Stock> list = repository.get().findAll();
++			return output.get().createListResponse(list, null);
++		} catch (NoSuchElementException e) {
++			return new ResponseModel<List<Stock>>(null, "There is no OutputBoundary or Repository set for Find Stock use case.");
++		}
++	}
+ }
+diff --git a/usecases/src/main/java/com/thunderbulls/stock/input/FindStockInput.java b/usecases/src/main/java/com/thunderbulls/stock/input/FindStockInput.java
+index 9dbb069..efa6e4b 100644
+--- a/usecases/src/main/java/com/thunderbulls/stock/input/FindStockInput.java
++++ b/usecases/src/main/java/com/thunderbulls/stock/input/FindStockInput.java
+@@ -13,4 +13,6 @@ public interface FindStockInput extends UseCase<StockRepository, FindStockOutput
+ 	ResponseModel<Stock> findByCode(String code);
+ 	
+ 	ResponseModel<List<Stock>> findByCorpName(String corpName);
++
++	ResponseModel<List<Stock>> findAll();
+ }
+diff --git a/usecases/src/main/java/com/thunderbulls/stock/repository/StockRepository.java b/usecases/src/main/java/com/thunderbulls/stock/repository/StockRepository.java
+index 55017b2..f763740 100644
+--- a/usecases/src/main/java/com/thunderbulls/stock/repository/StockRepository.java
++++ b/usecases/src/main/java/com/thunderbulls/stock/repository/StockRepository.java
+@@ -11,4 +11,6 @@ public interface StockRepository extends Repository{
+ 	List<Stock> findByCorpName(String corpName);
+ 
+ 	Stock save(Stock stock);
++
++	List<Stock> findAll();
+ }
+diff --git a/usecases/src/test/java/com/thunderbulls/stock/FindStockTest.java b/usecases/src/test/java/com/thunderbulls/stock/FindStockTest.java
+index 05a2c5f..a30182c 100644
+--- a/usecases/src/test/java/com/thunderbulls/stock/FindStockTest.java
++++ b/usecases/src/test/java/com/thunderbulls/stock/FindStockTest.java
+@@ -60,4 +60,11 @@ public class FindStockTest {
+ 		ResponseModel<Stock> response = stockFinder.findByCode("AAAA1");
+ 		assertTrue(response.getErrors().size() == 1);
+ 	}
++	
++	@Test
++	public void canFindAll() {
++		ResponseModel<List<Stock>> response = stockFinder.findAll();
++		assertTrue(response.getErrors().size() == 0);
++		assertTrue(response.getObject().size() > 0);
++	}
+ }
+diff --git a/usecases/src/test/java/com/thunderbulls/stock/mock/MockStockRepository.java b/usecases/src/test/java/com/thunderbulls/stock/mock/MockStockRepository.java
+index 094a6f7..8c430a0 100644
+--- a/usecases/src/test/java/com/thunderbulls/stock/mock/MockStockRepository.java
++++ b/usecases/src/test/java/com/thunderbulls/stock/mock/MockStockRepository.java
+@@ -32,4 +32,9 @@ public class MockStockRepository implements StockRepository {
+ 		return stock;
+ 	}
+ 
++	@Override
++	public List<Stock> findAll() {
++		return stockList;
++	}
++
+ }
