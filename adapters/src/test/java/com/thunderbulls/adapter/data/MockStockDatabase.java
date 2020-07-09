@@ -30,4 +30,9 @@ public class MockStockDatabase implements StockDatabase{
 		stockList.add(stock);
 		return stock;
 	}
+
+	@Override
+	public List<StockDataEntity> findAll() {
+		return stockList;
+	}
 }

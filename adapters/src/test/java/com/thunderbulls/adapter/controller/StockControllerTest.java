@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.thunderbulls.adapter.view.StockListView;
 import com.thunderbulls.adapter.view.StockView;
 import com.thunderbulls.stock.input.AddStockInput;
 import com.thunderbulls.stock.input.FindStockInput;
@@ -36,5 +37,11 @@ public class StockControllerTest {
 	@Test(expected = RuntimeException.class)
 	public void addExistentStock() {
 		controller.save("PETR4", "Petrobras");
+	}
+	
+	@Test
+	public void findAllStocks() {
+		StockListView view = controller.findAll();
+		assertTrue(view.getList().size() > 0);
 	}
 }

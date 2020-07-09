@@ -59,4 +59,13 @@ public class StockDataAccess implements StockRepository {
 		this.database = database;
 	}
 
+	@Override
+	public List<Stock> findAll() {
+		List<StockDataEntity> list = database.findAll();
+		List<Stock> stockList = new ArrayList<Stock>();
+		list.stream()
+				.forEach(item -> stockList.add(toDomain(item)));
+		return stockList;
+	}
+
 }

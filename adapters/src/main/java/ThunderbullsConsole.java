@@ -1,4 +1,7 @@
+import java.util.List;
+
 import com.thunderbulls.adapter.controller.StockController;
+import com.thunderbulls.adapter.view.StockListView;
 import com.thunderbulls.adapter.view.StockView;
 import com.thunderbulls.adapter.view.StockViewModel;
 import com.thunderbulls.stock.AddStock;
@@ -17,8 +20,23 @@ public class ThunderbullsConsole {
 		addStock = new AddStock();
 		findStock = new FindStock();
 		controller = new StockController(findStock, addStock);
+		list();
 		saving();
 		finding();
+	}
+
+	private static void list() {
+		try {
+			StockListView view = controller.findAll();
+			List<StockViewModel> list = view.getList();
+			
+			for (StockViewModel model : list) {
+				System.out.println("Stock: " + model.getCode() + " - Company: " + model.getCompany() + ".");
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	private static void saving() {

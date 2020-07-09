@@ -32,4 +32,9 @@ public class MockStockRepository implements StockRepository {
 		return stock;
 	}
 
+	@Override
+	public List<Stock> findAll() {
+		return stockList;
+	}
+
 }

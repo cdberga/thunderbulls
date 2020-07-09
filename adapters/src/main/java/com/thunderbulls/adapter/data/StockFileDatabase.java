@@ -99,4 +99,13 @@ public class StockFileDatabase implements StockDatabase{
 			throw new RuntimeException("There was a problem reading database.");
 		}
 	}
+
+	@Override
+	public List<StockDataEntity> findAll() {
+		if (stockList.isEmpty()) {
+			readFile();
+		}
+
+		return stockList;
+	}
 }

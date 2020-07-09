@@ -1,5 +1,6 @@
 package com.thunderbulls.adapter.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.thunderbulls.ResponseModel;
@@ -25,6 +26,11 @@ public class MockFindStockInput implements FindStockInput {
 	}
 
 	public void setRepository(StockRepository repository) {
+	}
+
+	@Override
+	public ResponseModel<List<Stock>> findAll() {
+		return new ResponseModel<List<Stock>>(Arrays.asList(new Stock("PETR4", "Petrobras"), new Stock("VALE5", "VALE SA")));
 	}
 
 }

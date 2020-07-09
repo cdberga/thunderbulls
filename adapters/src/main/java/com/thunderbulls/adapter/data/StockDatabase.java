@@ -10,4 +10,6 @@ public interface StockDatabase {
 	
 	StockDataEntity save(StockDataEntity dataEntity);
 
+	List<StockDataEntity> findAll();
+
 }

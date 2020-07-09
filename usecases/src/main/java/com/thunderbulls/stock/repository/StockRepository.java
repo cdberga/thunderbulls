@@ -11,4 +11,6 @@ public interface StockRepository extends Repository{
 	List<Stock> findByCorpName(String corpName);
 
 	Stock save(Stock stock);
+
+	List<Stock> findAll();
 }

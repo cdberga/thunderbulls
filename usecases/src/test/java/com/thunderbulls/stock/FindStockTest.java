@@ -60,4 +60,11 @@ public class FindStockTest {
 		ResponseModel<Stock> response = stockFinder.findByCode("AAAA1");
 		assertTrue(response.getErrors().size() == 1);
 	}
+	
+	@Test
+	public void canFindAll() {
+		ResponseModel<List<Stock>> response = stockFinder.findAll();
+		assertTrue(response.getErrors().size() == 0);
+		assertTrue(response.getObject().size() > 0);
+	}
 }

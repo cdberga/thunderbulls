@@ -13,4 +13,6 @@ public interface FindStockInput extends UseCase<StockRepository, FindStockOutput
 	ResponseModel<Stock> findByCode(String code);
 	
 	ResponseModel<List<Stock>> findByCorpName(String corpName);
+
+	ResponseModel<List<Stock>> findAll();
 }

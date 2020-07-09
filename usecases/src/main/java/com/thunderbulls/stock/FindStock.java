@@ -44,4 +44,14 @@ public class FindStock implements FindStockInput {
 	public void setRepository(StockRepository repository) {
 		this.repository = Optional.ofNullable(repository);
 	}
+
+	@Override
+	public ResponseModel<List<Stock>> findAll() {
+		try {
+			List<Stock> list = repository.get().findAll();
+			return output.get().createListResponse(list, null);
+		} catch (NoSuchElementException e) {
+			return new ResponseModel<List<Stock>>(null, "There is no OutputBoundary or Repository set for Find Stock use case.");
+		}
+	}
 }
