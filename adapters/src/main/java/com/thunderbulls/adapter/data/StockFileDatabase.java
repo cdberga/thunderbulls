@@ -13,7 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class StockFileDatabase {
+public class StockFileDatabase implements StockDatabase{
 	
 	private static final String FILENAME = "stocks.dat";
 
@@ -39,10 +39,13 @@ public class StockFileDatabase {
 
 	List<StockDataEntity> stockList;
 
-	public void save(StockDataEntity item) {
+	@Override
+	public StockDataEntity save(StockDataEntity item) {
 		writeFile(Arrays.asList(item));
+		return item;
 	}
 
+	@Override
 	public StockDataEntity findByCode(String code) {
 		if (stockList.isEmpty()) {
 			readFile();
@@ -54,7 +57,8 @@ public class StockFileDatabase {
 		return null;
 	}
 
-	public List<StockDataEntity> findByCorpName(String corpName) {
+	@Override
+	public List<StockDataEntity> findByCompany(String corpName) {
 		if (stockList.isEmpty()) {
 			readFile();
 		}

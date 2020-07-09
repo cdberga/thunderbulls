@@ -8,19 +8,27 @@ import com.thunderbulls.stock.repository.StockRepository;
 
 public class StockDataAccess implements StockRepository {
 	
-	StockFileDatabase database;
+	public StockDataAccess() {
+		super();
+		this.database = new StockFileDatabase();
+	}
+	
+	public StockDataAccess(StockDatabase database) {
+		super();
+		this.setDatabase(database);
+	}
+
+	StockDatabase database;
 
 	@Override
 	public Stock findByCode(String code) {
-		database = new StockFileDatabase();
 		StockDataEntity data = database.findByCode(code);
 		return toDomain(data);
 	}
 
 	@Override
 	public List<Stock> findByCorpName(String corpName) {
-		database = new StockFileDatabase();
-		List<StockDataEntity> list = database.findByCorpName(corpName);
+		List<StockDataEntity> list = database.findByCompany(corpName);
 		List<Stock> stockList = new ArrayList<Stock>();
 		list.stream()
 				.forEach(item -> stockList.add(toDomain(item)));
@@ -29,7 +37,6 @@ public class StockDataAccess implements StockRepository {
 
 	@Override
 	public Stock save(Stock stock) {
-		database = new StockFileDatabase();
 		database.save(toDataEntity(stock));
 		return stock;
 	}
@@ -46,6 +53,10 @@ public class StockDataAccess implements StockRepository {
 			return null;
 		
 		return new Stock(dataEntity.getCode(), dataEntity.getCompany());
+	}
+
+	public void setDatabase(StockDatabase database) {
+		this.database = database;
 	}
 
 }
